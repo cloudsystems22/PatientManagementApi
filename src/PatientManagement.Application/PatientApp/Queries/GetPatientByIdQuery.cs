@@ -3,4 +3,7 @@ using PatientManagement.Domain.Interfaces.Mediator;
 
 namespace PatientManagement.Application.PatientApp.Queries;
 
-public class GetPatientsQuery : IQuery<IEnumerable<Patient>> {}
+public class GetPatientByIdQuery : IQuery<Patient>
+{
+    public string Id { get; set; }
+}

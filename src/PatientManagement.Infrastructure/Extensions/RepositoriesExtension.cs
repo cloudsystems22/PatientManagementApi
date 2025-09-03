@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using PatientManagement.Domain.Repositories;
+using PatientManagement.Domain.Interfaces.Repositories.Patients;
 using PatientManagement.Infrastructure.Repositories;
 
 namespace PatientManagement.Infrastructure.Extensions;

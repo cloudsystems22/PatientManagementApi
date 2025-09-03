@@ -3,18 +3,17 @@ using PatientManagement.Domain.Entities;
 using PatientManagement.Domain.Interfaces.Handlers;
 using PatientManagement.Domain.Interfaces.Repositories.Patients;
 
+
 namespace PatientManagement.Application.PatientApp.Handlers;
 
-public class GetPatientsHandler : IQueryHandler<GetPatientsQuery, IEnumerable<Patient>>
+public class GetPatientByIdHandler : IQueryHandler<GetPatientByIdQuery, Patient>
 {
     private readonly IPatientRepository _repository;
-    public GetPatientsHandler(IPatientRepository repository)
+    public GetPatientByIdHandler(IPatientRepository repository)
         => _repository = repository;
-
-    
-    public async Task<IEnumerable<Patient>> Handle(GetPatientsQuery query)
+   
+    public async Task<Patient> Handle(GetPatientByIdQuery query)
     {
-         return await _repository.GetAllAsync();
+        return await _repository.GetByIdAsync(query.Id);
     }
-
 }
