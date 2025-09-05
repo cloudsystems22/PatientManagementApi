@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using PatientManagement.Api.Middleware;
 using PatientManagement.Application.Extensions;
 using PatientManagement.Infrastructure.Data;
 using PatientManagement.Infrastructure.Extensions;
@@ -70,6 +71,8 @@ public class Startup
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Gerenciamento de Pacientes v1"));
             app.UseDeveloperExceptionPage();
         }
+
+        app.UseGlobalExceptionHandling();
 
         app.UseHttpsRedirection();
         app.UseRouting();

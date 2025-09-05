@@ -30,7 +30,13 @@ public class Program
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .UseSerilog() // Usa Serilog como provider de logging
+            //.UseSerilog()
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();    // 🔥 Log no terminal
+                logging.AddDebug();      // Opcional: log no Debug Output (VS/VS Code)
+            })
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();

@@ -59,7 +59,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
             }
             catch (Exception ex)
             {
-                _logger.LogError("Erro ao tentar remover registro. @{Message}", ex.Message);
+                _logger.LogError("Erro ao tentar remover registro. {Message}", ex.Message);
                 throw new Exception($"Erro ao tentar remover registro. {ex.Message}");
             }
         });

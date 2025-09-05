@@ -1,6 +1,9 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using PatientManagement.Api.Common;
 using PatientManagement.Application.PatientApp.Commands;
 using PatientManagement.Application.PatientApp.Queries;
+using PatientManagement.Domain.Entities;
 using PatientManagement.Domain.Interfaces.Mediator;
 
 namespace PatientManagement.Api.Controllers;
@@ -19,45 +22,81 @@ public class PatientController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Patient>))]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> GetAll()
     {
-        var pacientes = await _mediator.Send(new GetPatientsQuery());
-        return Ok(pacientes);
+        var result = await _mediator.Send(new GetPatientsQuery());
+        if (!result.Success)
+            return BadRequest(ApiResponse<string>.Fail(result.Error!));
+
+        return Ok(ApiResponse<IEnumerable<Patient>>.Ok(result.Data!));
+    }
+
+    [HttpGet("search")]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Patient>))]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
+    public async Task<IActionResult> Search([FromQuery] SearchPatientsQuery query)
+    {
+        var result = await _mediator.Send(query);
+        if (!result.Success)
+            return BadRequest(ApiResponse<string>.Fail(result.Error!));
+
+        return Ok(ApiResponse<IEnumerable<Patient>>.Ok(result.Data!));
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Patient))]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> GetById(string id)
     {
-        var paciente = await _mediator.Send(new GetPatientByIdQuery { Id = id });
-        if (paciente == null)
-            return NotFound();
-        return Ok(paciente);
+        var result = await _mediator.Send(new GetPatientByIdQuery { Id = id });
+        if (!result.Success)
+            return BadRequest(ApiResponse<string>.Fail(result.Error!));
+
+        return Ok(ApiResponse<Patient>.Ok(result.Data!));
     }
 
     [HttpPost]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Patient))]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> Create([FromBody] CreatePatientCommand command)
     {
-        var paciente = await _mediator.Send(command);
-        return CreatedAtAction(nameof(GetAll), new { id = paciente.Id }, paciente);
+        var result = await _mediator.Send(command);
+        if (!result.Success)
+            return BadRequest(ApiResponse<string>.Fail(result.Error!));
+
+        return Ok(ApiResponse<Patient>.Ok(result.Data!));
     }
-    
+
     [HttpPut]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Patient))]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> Update([FromBody] UpdatePatientCommand command)
     {
-        if (string.IsNullOrEmpty(command.Id)) return BadRequest();
+        var result = await _mediator.Send(command);
+        if (!result.Success)
+            return BadRequest(ApiResponse<string>.Fail(result.Error!));
 
-        var paciente = await _mediator.Send(command);
-        if (paciente == null) return NotFound();
-
-        return Ok(paciente);
+        return Ok(ApiResponse<Patient>.Ok(result.Data!));
     }
 
     [HttpDelete("{id}")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> Delete(string id)
     {
         var result = await _mediator.Send(new DeletePatientCommand { Id = id });
-        if (!result) return NotFound();
-        return NoContent();
+        if (!result.Success)
+            return BadRequest(ApiResponse<string>.Fail(result.Error!));
+
+        return Ok(ApiResponse<Patient>.Ok(result.Data!));
     }
 
 }
