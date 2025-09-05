@@ -9,11 +9,40 @@ O projeto segue princípios de **Clean Architecture**, aplicando **CQRS (Command
 
 A solução está organizada em camadas independentes para garantir separação de responsabilidades, testabilidade e escalabilidade.
 
-backend/
-│── PatientManagement.Api/ → API REST (Web API em .NET 9)
-│── PatientManagement.Application/ → Casos de uso (Use Cases / CQRS)
-│── PatientManagement.Domain/ → Entidades, Interfaces e Contratos
-│── PatientManagement.Infrastructure/ → Persistência (EF Core, Repositories)
+
+### 🔹 Diagrama da Arquitetura (Mermaid)
+
+```mermaid
+flowchart LR
+    subgraph API[API Layer]
+        C1[PacientesController]
+    end
+
+    subgraph Application[Application Layer]
+        H1[CreatePacienteHandler]
+        H2[UpdatePacienteHandler]
+        H3[DeletePacienteHandler]
+        H4[GetPacientesHandler]
+        H5[GetPacienteByIdHandler]
+    end
+
+    subgraph Domain[Domain Layer]
+        E1[Paciente Entity]
+        E2[Atendimento Entity]
+        E3[Triagem Entity]
+        I1[IRepository]
+    end
+
+    subgraph Infra[Infrastructure Layer]
+        R1[PacienteRepository]
+        DB[(SQL Server Database)]
+    end
+
+    C1 --> H1 & H2 & H3 & H4 & H5
+    H1 & H2 & H3 & H4 & H5 --> I1
+    I1 --> R1
+    R1 --> DB
+
 
 
 ### 🔹 Camadas
