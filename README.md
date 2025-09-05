@@ -12,7 +12,7 @@ A solução está organizada em camadas independentes para garantir separação 
 
 ### 🔹 Diagrama da Arquitetura (Mermaid)
 
-![Arquitetura](docs/diagrams/arquitetura.png)
+![Arquitetura](cqrsdiagram.png)
 
 ### 🔹 Camadas
 
@@ -59,6 +59,8 @@ A solução está organizada em camadas independentes para garantir separação 
 - Nenhum paciente pode ser atendido sem estar cadastrado.  
 - O atendimento só ocorre após a triagem.  
 - Pacientes são chamados **na ordem de chegada**, garantindo prioridade justa.  
+
+![Fluxotrabalho](dfddiagram.png)
 
 ---
 
