@@ -1,32 +1,36 @@
 using Microsoft.Extensions.Logging;
 using PatientManagement.Application.Common;
+using PatientManagement.Application.Dtos;
 using PatientManagement.Application.PatientApp.Commands;
 using PatientManagement.Domain.Entities;
 using PatientManagement.Domain.Interfaces.Handlers;
+using PatientManagement.Domain.Interfaces.Mappers;
 using PatientManagement.Domain.Interfaces.Repositories.Patients;
 
 namespace PatientManagement.Application.PatientApp.Handlers;
 
-public class UpdatePatientHandler : ICommandHandler<UpdatePatientCommand, Result<Patient>>
+public class UpdatePatientHandler : ICommandHandler<UpdatePatientCommand, Result<PatientDto>>
 {
     private readonly IPatientRepository _repository;
+    private readonly IPatientMapper _mapper;
     private readonly ILogger<UpdatePatientHandler> _logger;
 
-    public UpdatePatientHandler(IPatientRepository repository, ILogger<UpdatePatientHandler> logger)
+    public UpdatePatientHandler(IPatientRepository repository, ILogger<UpdatePatientHandler> logger, IPatientMapper mapper)
     {
         _repository = repository;
         _logger = logger;
+        _mapper = mapper;
     }
 
 
-    public async Task<Result<Patient>> Handle(UpdatePatientCommand command)
+    public async Task<Result<PatientDto>> Handle(UpdatePatientCommand command)
     {
         try
         {
             var patient = await _repository.GetByIdAsync(command.Id);
 
             if (patient == null)
-                return Result<Patient>.Ok(patient!);
+                return Result<PatientDto>.Ok(new PatientDto());
 
             patient.Rg = command.Rg;
             patient.Name = command.Name;
@@ -35,13 +39,14 @@ public class UpdatePatientHandler : ICommandHandler<UpdatePatientCommand, Result
             patient.EmailAddress = command.EmailAddress;
 
             await _repository.UpdateAsync(patient);
-            return Result<Patient>.Ok(patient);
+            var dto = _mapper.ToDto(patient);
+            return Result<PatientDto>.Ok(dto);
 
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Erro ao tentar atualizar dados de paciente.");
-            return Result<Patient>.Fail($"Erro ao tentar atualizar dados de paciente. {ex.Message}");
+            return Result<PatientDto>.Fail($"Erro ao tentar atualizar dados de paciente. {ex.Message}");
         }
     }
 

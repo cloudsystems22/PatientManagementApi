@@ -1,34 +1,39 @@
 using Microsoft.Extensions.Logging;
 using PatientManagement.Application.Common;
+using PatientManagement.Application.Dtos;
 using PatientManagement.Application.PatientApp.Queries;
 using PatientManagement.Domain.Entities;
 using PatientManagement.Domain.Interfaces.Handlers;
+using PatientManagement.Domain.Interfaces.Mappers;
 using PatientManagement.Domain.Interfaces.Repositories.Patients;
 
 namespace PatientManagement.Application.PatientApp.Handlers;
 
-public class GetPatientsHandler : IQueryHandler<GetPatientsQuery, Result<IEnumerable<Patient>>>
+public class GetPatientsHandler : IQueryHandler<GetPatientsQuery, Result<IEnumerable<PatientDto>>>
 {
     private readonly IPatientRepository _repository;
+    private readonly IPatientMapper _mapper;
     private readonly ILogger<GetPatientsHandler> _logger;
-    public GetPatientsHandler(IPatientRepository repository, ILogger<GetPatientsHandler> logger)
+    public GetPatientsHandler(IPatientRepository repository, ILogger<GetPatientsHandler> logger, IPatientMapper mapper)
     {
         _repository = repository;
         _logger = logger;
+        _mapper = mapper;
     }
     
-    public async Task<Result<IEnumerable<Patient>>> Handle(GetPatientsQuery query)
+    public async Task<Result<IEnumerable<PatientDto>>> Handle(GetPatientsQuery query)
     {
         _logger.LogInformation("[GetPatientsHandler] Iniciando retorno de pacientes.");
         try
         {
             var pacientes = await _repository.GetAllAsync();
-            return Result<IEnumerable<Patient>>.Ok(pacientes.ToList());
+            var dto = _mapper.ToDtoIEnumerable(pacientes);
+            return Result<IEnumerable<PatientDto>>.Ok(dto);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Erro ao tentar retornar uma lista de pacientes");
-            return Result<IEnumerable<Patient>>.Fail($"Erro ao tentar retornar uma lista de pacientes: {ex.Message}");
+            return Result<IEnumerable<PatientDto>>.Fail($"Erro ao tentar retornar uma lista de pacientes: {ex.Message}");
         }
     }
 

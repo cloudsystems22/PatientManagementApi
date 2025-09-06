@@ -7,32 +7,39 @@ using PatientManagement.Domain.Entities;
 using PatientManagement.Application.PatientApp.Queries;
 using PatientManagement.Application.PatientApp.Handlers;
 using PatientManagement.Application.Common;
+using PatientManagement.Application.Dtos;
+using PatientManagement.Application.PatientApp.Mappers;
+using PatientManagement.Domain.Interfaces.Mappers;
 
 namespace PatientManagement.Application.Extensions;
 
- public static class ApplicationExtension
+public static class ApplicationExtension
+{
+    public static IServiceCollection AddHandlers(this IServiceCollection services)
     {
-        public static IServiceCollection AddHandlers(this IServiceCollection services)
-        {
-
-            services.AddScoped<IMediator, Mediator>();
-            services.AddScoped<ICommandHandler<CreatePatientCommand, Result<Patient>>, CreatePatientHandler>();
-            services.AddScoped<ICommandHandler<UpdatePatientCommand, Result<Patient>>, UpdatePatientHandler>();
-            services.AddScoped<ICommandHandler<DeletePatientCommand, Result<Patient>>, DeletePatientHandler>();
-            services.AddScoped<IQueryHandler<GetPatientsQuery, Result<IEnumerable<Patient>>>, GetPatientsHandler>();
-            services.AddScoped<IQueryHandler<GetPatientByIdQuery, Result<Patient>>, GetPatientByIdHandler>();
-            services.AddScoped<IQueryHandler<SearchPatientsQuery, Result<IEnumerable<Patient>>>, SearchPatientsHandler>();
-
-            services.Scan(scan => scan
-                .FromAssembliesOf(typeof(IMediator))
-                .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<,>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime()
-                .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime()
-            );
-
-            return services;
-        }
+        services.AddScoped<IMediator, Mediator>();
+        services.AddScoped<ICommandHandler<CreatePatientCommand, Result<PatientDto>>, CreatePatientHandler>();
+        services.AddScoped<ICommandHandler<UpdatePatientCommand, Result<PatientDto>>, UpdatePatientHandler>();
+        services.AddScoped<ICommandHandler<DeletePatientCommand, Result<PatientDto>>, DeletePatientHandler>();
+        services.AddScoped<IQueryHandler<GetPatientsQuery, Result<IEnumerable<PatientDto>>>, GetPatientsHandler>();
+        services.AddScoped<IQueryHandler<GetPatientByIdQuery, Result<PatientDto>>, GetPatientByIdHandler>();
+        services.AddScoped<IQueryHandler<SearchPatientsQuery, Result<IEnumerable<PatientDto>>>, SearchPatientsHandler>();
+        services.Scan(scan => scan
+            .FromAssembliesOf(typeof(IMediator))
+            .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+            .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+        );
+        return services;
     }
+
+    public static IServiceCollection AddMappers(this IServiceCollection services)
+    {
+        services.AddScoped<IPatientMapper, PatientMapper>();
+        return services;
+    }
+    
+}

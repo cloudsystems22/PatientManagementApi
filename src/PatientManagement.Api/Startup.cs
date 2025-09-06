@@ -38,6 +38,7 @@ public class Startup
         services.AddRepositories();
 
         services.AddHandlers();
+        services.AddMappers();
 
         services.AddControllers()
          .AddJsonOptions(options =>

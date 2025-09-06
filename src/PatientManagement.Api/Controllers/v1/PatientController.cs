@@ -1,6 +1,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using PatientManagement.Api.Common;
+using PatientManagement.Application.Dtos;
 using PatientManagement.Application.PatientApp.Commands;
 using PatientManagement.Application.PatientApp.Queries;
 using PatientManagement.Domain.Entities;
@@ -22,7 +23,7 @@ public class PatientController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Patient>))]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<PatientDto>))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> GetAll()
@@ -31,11 +32,11 @@ public class PatientController : ControllerBase
         if (!result.Success)
             return BadRequest(ApiResponse<string>.Fail(result.Error!));
 
-        return Ok(ApiResponse<IEnumerable<Patient>>.Ok(result.Data!));
+        return Ok(ApiResponse<IEnumerable<PatientDto>>.Ok(result.Data!));
     }
 
     [HttpGet("search")]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Patient>))]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<PatientDto>))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> Search([FromQuery] SearchPatientsQuery query)
@@ -44,11 +45,11 @@ public class PatientController : ControllerBase
         if (!result.Success)
             return BadRequest(ApiResponse<string>.Fail(result.Error!));
 
-        return Ok(ApiResponse<IEnumerable<Patient>>.Ok(result.Data!));
+        return Ok(ApiResponse<IEnumerable<PatientDto>>.Ok(result.Data!));
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Patient))]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PatientDto))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> GetById(string id)
@@ -57,11 +58,11 @@ public class PatientController : ControllerBase
         if (!result.Success)
             return BadRequest(ApiResponse<string>.Fail(result.Error!));
 
-        return Ok(ApiResponse<Patient>.Ok(result.Data!));
+        return Ok(ApiResponse<PatientDto>.Ok(result.Data!));
     }
 
     [HttpPost]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Patient))]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PatientDto))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> Create([FromBody] CreatePatientCommand command)
@@ -70,11 +71,11 @@ public class PatientController : ControllerBase
         if (!result.Success)
             return BadRequest(ApiResponse<string>.Fail(result.Error!));
 
-        return Ok(ApiResponse<Patient>.Ok(result.Data!));
+        return Ok(ApiResponse<PatientDto>.Ok(result.Data!));
     }
 
     [HttpPut]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Patient))]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PatientDto))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Error))]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Error))]
     public async Task<IActionResult> Update([FromBody] UpdatePatientCommand command)
@@ -83,7 +84,7 @@ public class PatientController : ControllerBase
         if (!result.Success)
             return BadRequest(ApiResponse<string>.Fail(result.Error!));
 
-        return Ok(ApiResponse<Patient>.Ok(result.Data!));
+        return Ok(ApiResponse<PatientDto>.Ok(result.Data!));
     }
 
     [HttpDelete("{id}")]
@@ -96,7 +97,7 @@ public class PatientController : ControllerBase
         if (!result.Success)
             return BadRequest(ApiResponse<string>.Fail(result.Error!));
 
-        return Ok(ApiResponse<Patient>.Ok(result.Data!));
+        return Ok(ApiResponse<PatientDto>.Ok(result.Data!));
     }
 
 }
