@@ -4,5 +4,6 @@ public enum StatusCare
 {
     Aguardando,
     Atendimento,
-    Triagem
+    Triagem,
+    Concluido
 }

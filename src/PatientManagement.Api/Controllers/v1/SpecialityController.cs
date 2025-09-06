@@ -22,19 +22,6 @@ public class SpecialityController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Result<IEnumerable<SpecialityDto>>))]
-    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Result<IEnumerable<SpecialityDto>>))]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Result<IEnumerable<SpecialityDto>>))]
-    public async Task<IActionResult> GetAll()
-    {
-        var result = await _mediator.Send(new GetSpecialitiesQuery());
-        if (!result.Success)
-            return BadRequest(ApiResponse<string>.Fail(result.Error!));
-
-        return Ok(ApiResponse<IEnumerable<SpecialityDto>>.Ok(result.Data!));
-    }
-
     [HttpGet("search")]
     [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Result<IEnumerable<SpecialityDto>>))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Result<SpecialityDto>))]

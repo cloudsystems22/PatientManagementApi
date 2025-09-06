@@ -12,6 +12,9 @@ using PatientManagement.Application.Mappers;
 using PatientManagement.Application.Specialities.Commands;
 using PatientManagement.Application.Specialities.Queries;
 using PatientManagement.Application.Specialities.Handlers;
+using PatientManagement.Application.Cares.Commands;
+using PatientManagement.Application.Cares.Handlers;
+using PatientManagement.Application.Cares.Queries;
 
 namespace PatientManagement.Application.Extensions;
 
@@ -34,6 +37,13 @@ public static class ApplicationExtension
         services.AddScoped<IQueryHandler<GetSpecialitiesQuery, Result<IEnumerable<SpecialityDto>>>, GetSpecialitiesHandler>();
         services.AddScoped<IQueryHandler<GetSpecialityByIdQuery, Result<SpecialityDto>>, GetSpecialityByIdHandler>();
         services.AddScoped<IQueryHandler<SearchSpecialityQuery, Result<IEnumerable<SpecialityDto>>>, SearchSpecialityHandler>();
+
+        // Care Handlers
+        services.AddScoped<ICommandHandler<CreateCareCommand, Result<CareDto>>, CreateCareHandler>();
+        services.AddScoped<ICommandHandler<UpdateCareCommand, Result<CareDto>>, UpdateCareHandler>();
+        services.AddScoped<ICommandHandler<DeleteCareCommand, Result<CareDto>>, DeleteCareHandler>();
+        services.AddScoped<IQueryHandler<GetCareByIdQuery, Result<CareDto>>, GetCareByIdHandler>();
+        services.AddScoped<IQueryHandler<SearchCareQuery, Result<IEnumerable<CareDto>>>, SearchCareHandler>();
     
         services.Scan(scan => scan
             .FromAssembliesOf(typeof(IMediator))
@@ -51,6 +61,7 @@ public static class ApplicationExtension
     {
         services.AddScoped<IPatientMapper, PatientMapper>();
         services.AddScoped<ISpecialityMapper, SpecialityMapper>();
+        services.AddScoped<ICareMapper, CareMapper>();
         return services;
     }
     

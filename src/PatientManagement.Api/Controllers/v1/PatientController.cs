@@ -22,19 +22,6 @@ public class PatientController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Result<IEnumerable<PatientDto>>))]
-    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Result<IEnumerable<PatientDto>>))]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(Result<IEnumerable<PatientDto>>))]
-    public async Task<IActionResult> GetAll()
-    {
-        var result = await _mediator.Send(new GetPatientsQuery());
-        if (!result.Success)
-            return BadRequest(ApiResponse<string>.Fail(result.Error!));
-
-        return Ok(ApiResponse<IEnumerable<PatientDto>>.Ok(result.Data!));
-    }
-
     [HttpGet("search")]
     [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Result<IEnumerable<PatientDto>>))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Result<PatientDto>))]

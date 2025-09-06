@@ -1,8 +1,11 @@
+using PatientManagement.Application.Common;
+using PatientManagement.Application.Dtos;
 using PatientManagement.Domain.Enums;
+using PatientManagement.Domain.Interfaces.Mediator;
 
-namespace PatientManagement.Application.Dtos;
+namespace PatientManagement.Application.Cares.Commands;
 
-public class CareDto
+public class UpdateCareCommand : ICommand<Result<CareDto>>
 {
     public string Id { get; set; }
     public string SequenceNumber { get; set; }
