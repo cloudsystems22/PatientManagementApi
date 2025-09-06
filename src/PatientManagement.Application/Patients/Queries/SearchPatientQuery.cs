@@ -2,7 +2,7 @@ using PatientManagement.Application.Common;
 using PatientManagement.Application.Dtos;
 using PatientManagement.Domain.Interfaces.Mediator;
 
-namespace PatientManagement.Application.PatientApp.Queries;
+namespace PatientManagement.Application.Patients.Queries;
 
 public class SearchPatientsQuery : IQuery<Result<IEnumerable<PatientDto>>>
 {

@@ -1,9 +1,9 @@
 using PatientManagement.Application.Dtos;
-using PatientManagement.Application.PatientApp.Commands;
+using PatientManagement.Application.Patients.Commands;
 using PatientManagement.Domain.Entities;
-using PatientManagement.Domain.Interfaces.Mappers;
+using PatientManagement.Application.Mappers.Interfaces;
 
-namespace PatientManagement.Application.PatientApp.Mappers
+namespace PatientManagement.Application.Mappers
 {
     public class PatientMapper : IPatientMapper
     {

@@ -2,9 +2,9 @@ using PatientManagement.Application.Common;
 using PatientManagement.Application.Dtos;
 using PatientManagement.Domain.Interfaces.Mediator;
 
-namespace PatientManagement.Application.PatientApp.Commands;
+namespace PatientManagement.Application.Specialities.Queries;
 
-public class DeletePatientCommand : ICommand<Result<PatientDto>>
+public class GetSpecialityByIdQuery : IQuery<Result<SpecialityDto>>
 {
     public string Id { get; set; }
 }

@@ -1,4 +1,4 @@
-namespace PatientManagement.Domain.Entities;
+namespace PatientManagement.Application.Common;
 
 public class Error
 {

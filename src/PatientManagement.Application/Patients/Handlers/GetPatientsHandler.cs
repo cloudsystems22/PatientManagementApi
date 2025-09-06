@@ -1,13 +1,12 @@
 using Microsoft.Extensions.Logging;
 using PatientManagement.Application.Common;
 using PatientManagement.Application.Dtos;
-using PatientManagement.Application.PatientApp.Queries;
-using PatientManagement.Domain.Entities;
+using PatientManagement.Application.Patients.Queries;
 using PatientManagement.Domain.Interfaces.Handlers;
-using PatientManagement.Domain.Interfaces.Mappers;
+using PatientManagement.Application.Mappers.Interfaces;
 using PatientManagement.Domain.Interfaces.Repositories.Patients;
 
-namespace PatientManagement.Application.PatientApp.Handlers;
+namespace PatientManagement.Application.Patients.Handlers;
 
 public class GetPatientsHandler : IQueryHandler<GetPatientsQuery, Result<IEnumerable<PatientDto>>>
 {

@@ -9,5 +9,5 @@ public interface IBaseRepository<TEntity> where TEntity : class
     Task RemoveAsync(TEntity obj);
     Task<IEnumerable<TEntity>> GetAllAsync();
     Task<IEnumerable<TEntity>> GetAllWhereAsync(Expression<Func<TEntity, bool>> expression);
-    Task<TEntity> GetByIdAsync(string uid);
+    Task<TEntity> GetByIdAsync(string id);
 }

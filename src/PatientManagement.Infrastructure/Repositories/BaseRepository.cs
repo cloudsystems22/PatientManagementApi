@@ -43,9 +43,9 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return await Task.Run(() => _context.Set<TEntity>().Where(expression).ToList());
     }
 
-    public async Task<TEntity> GetByIdAsync(string uid)
+    public async Task<TEntity> GetByIdAsync(string id)
     {
-        return await Task.Run(() => _context.Set<TEntity>().Find(uid)!);
+        return await Task.Run(() => _context.Set<TEntity>().Find(id)!);
     }
 
     public async Task RemoveAsync(TEntity obj)

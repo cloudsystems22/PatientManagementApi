@@ -1,8 +1,8 @@
 namespace PatientManagement.Domain.Entities;
 
-public class Specialty
+public class Speciality
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public ICollection<Triage> Triagens { get; set; } = new List<Triage>();
 }

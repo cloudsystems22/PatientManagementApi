@@ -2,9 +2,9 @@ using PatientManagement.Application.Common;
 using PatientManagement.Application.Dtos;
 using PatientManagement.Domain.Interfaces.Mediator;
 
-namespace PatientManagement.Application.PatientApp.Commands;
+namespace PatientManagement.Application.Patients.Commands;
 
-public class UpdatePatientCommand : ICommand<Result<PatientDto>>
+public class CreatePatientCommand : ICommand<Result<PatientDto>>
 {
     public string Id { get; set; }
     public string Rg { get; set; } = string.Empty;

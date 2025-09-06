@@ -1,14 +1,12 @@
-using System.Net.Mail;
 using Microsoft.Extensions.Logging;
+using PatientManagement.Application.Mappers.Interfaces;
 using PatientManagement.Application.Common;
 using PatientManagement.Application.Dtos;
-using PatientManagement.Application.PatientApp.Commands;
-using PatientManagement.Domain.Entities;
+using PatientManagement.Application.Patients.Commands;
 using PatientManagement.Domain.Interfaces.Handlers;
-using PatientManagement.Domain.Interfaces.Mappers;
 using PatientManagement.Domain.Interfaces.Repositories.Patients;
 
-namespace PatientManagement.Application.PatientApp.Handlers;
+namespace PatientManagement.Application.Patients.Handlers;
 
 public class CreatePatientHandler : ICommandHandler<CreatePatientCommand, Result<PatientDto>>
 {
