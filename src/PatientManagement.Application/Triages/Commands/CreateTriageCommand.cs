@@ -1,6 +1,10 @@
-namespace PatientManagement.Application.Dtos;
+using PatientManagement.Application.Common;
+using PatientManagement.Application.Dtos;
+using PatientManagement.Domain.Interfaces.Mediator;
 
-public class TriageDto
+namespace PatientManagement.Application.Triages.Commands;
+
+public class CreateTriageCommand : ICommand<Result<TriageDto>>
 {
     public string Id { get; set; }
     public string CareId { get; set; }
@@ -9,6 +13,4 @@ public class TriageDto
     public decimal Weight { get; set; }
     public decimal Height { get; set; }
     public string SpecialtyId { get; set; }
-    public decimal IMC { get; set; }
-    public string IMCClassification { get; set; } = string.Empty;
 }

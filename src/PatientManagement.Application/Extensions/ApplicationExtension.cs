@@ -14,7 +14,10 @@ using PatientManagement.Application.Specialities.Queries;
 using PatientManagement.Application.Specialities.Handlers;
 using PatientManagement.Application.Cares.Commands;
 using PatientManagement.Application.Cares.Handlers;
+using PatientManagement.Application.Triages.Commands;
+using PatientManagement.Application.Triages.Handlers;
 using PatientManagement.Application.Cares.Queries;
+using PatientManagement.Application.Triages.Queries;
 
 namespace PatientManagement.Application.Extensions;
 
@@ -44,6 +47,13 @@ public static class ApplicationExtension
         services.AddScoped<ICommandHandler<DeleteCareCommand, Result<CareDto>>, DeleteCareHandler>();
         services.AddScoped<IQueryHandler<GetCareByIdQuery, Result<CareDto>>, GetCareByIdHandler>();
         services.AddScoped<IQueryHandler<SearchCareQuery, Result<IEnumerable<CareDto>>>, SearchCareHandler>();
+
+        // Triage Handlers
+        services.AddScoped<ICommandHandler<CreateTriageCommand, Result<TriageDto>>, CreateTriageHandler>();
+        services.AddScoped<ICommandHandler<UpdateTriageCommand, Result<TriageDto>>, UpdateTriageHandler>();
+        services.AddScoped<ICommandHandler<DeleteTriageCommand, Result<TriageDto>>, DeleteTriageHandler>();
+        services.AddScoped<IQueryHandler<GetTriageByIdQuery, Result<TriageDto>>, GetTriageByIdHandler>();
+        services.AddScoped<IQueryHandler<SearchTriageQuery, Result<IEnumerable<TriageDto>>>, SearchTriageHandler>();
     
         services.Scan(scan => scan
             .FromAssembliesOf(typeof(IMediator))
@@ -62,6 +72,7 @@ public static class ApplicationExtension
         services.AddScoped<IPatientMapper, PatientMapper>();
         services.AddScoped<ISpecialityMapper, SpecialityMapper>();
         services.AddScoped<ICareMapper, CareMapper>();
+        services.AddScoped<ITriageMapper, TriageMapper>();
         return services;
     }
     

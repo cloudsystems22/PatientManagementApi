@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PatientManagement.Domain.Interfaces.Repositories.Cares;
 using PatientManagement.Domain.Interfaces.Repositories.Patients;
 using PatientManagement.Domain.Interfaces.Repositories.Specialities;
+using PatientManagement.Domain.Interfaces.Repositories.Triages;
 using PatientManagement.Infrastructure.Repositories;
 
 namespace PatientManagement.Infrastructure.Extensions;
@@ -13,6 +14,7 @@ public static class RepositoriesExtension
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<ISpecialityRepository, SpecialityRepository>();
             services.AddScoped<ICareRepository, CareRepository>();
+            services.AddScoped<ITriageRepository, TriageRepository>();
             return services;
         }
     } 

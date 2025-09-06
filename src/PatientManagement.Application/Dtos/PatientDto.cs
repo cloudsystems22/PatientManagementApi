@@ -1,3 +1,5 @@
+using PatientManagement.Domain.Enums;
+
 namespace PatientManagement.Application.Dtos
 {
     public class PatientDto
@@ -6,7 +8,7 @@ namespace PatientManagement.Application.Dtos
         public string Rg { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
-        public string Sex { get; set; } = string.Empty;
+        public Gender Sex { get; set; }
         public string EmailAddress { get; set; } = string.Empty;
     }
 }
