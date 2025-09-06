@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: patientdb-mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Your_password123 # Use uma senha forte em produção e considere usar secrets.
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  patientmanagement-api:
+    container_name: patientmanagement-api
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    ports:
+      - "5209:8080" # Mapeia a porta 5209 do host para a 8080 do container.
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Server=127.0.0.1,1433;Database=PatientManagementDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
+    depends_on:
+      - db
+
+volumes:
+  mssql_data:
+    driver: local

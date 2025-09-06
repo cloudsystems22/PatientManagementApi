@@ -20,18 +20,18 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
 
-        // services.AddDbContext<MSSQLDbContext>(options =>
-        //     options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
-        //         sqlOptions => sqlOptions.EnableRetryOnFailure(
-        //                             maxRetryCount: 5,
-        //                             maxRetryDelay: TimeSpan.FromSeconds(10),
-        //                             errorNumbersToAdd: null
-        //                         )
-        //         )
-        //     );
-
         services.AddDbContext<MSSQLDbContext>(options =>
-           options.UseInMemoryDatabase("PatientDb"));
+            options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
+                sqlOptions => sqlOptions.EnableRetryOnFailure(
+                                    maxRetryCount: 5,
+                                    maxRetryDelay: TimeSpan.FromSeconds(10),
+                                    errorNumbersToAdd: null
+                                )
+                )
+            );
+
+        // services.AddDbContext<MSSQLDbContext>(options =>
+        //    options.UseInMemoryDatabase("PatientDb"));
 
 
         // Configurar controllers
