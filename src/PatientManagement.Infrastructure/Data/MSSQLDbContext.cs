@@ -7,10 +7,10 @@ public class MSSQLDbContext : DbContext
 {
     public MSSQLDbContext(DbContextOptions<MSSQLDbContext> options) : base(options) { }
 
-    public DbSet<Patient> Pacientes => Set<Patient>();
-    public DbSet<Care> Atendimentos => Set<Care>();
-    public DbSet<Triage> Triagens => Set<Triage>();
-    public DbSet<Speciality> Especialidades => Set<Speciality>();
+    public DbSet<Patient> Patient => Set<Patient>();
+    public DbSet<Care> Care => Set<Care>();
+    public DbSet<Triage> Triage => Set<Triage>();
+    public DbSet<Speciality> Speciality => Set<Speciality>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

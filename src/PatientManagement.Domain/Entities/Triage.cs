@@ -2,13 +2,13 @@ namespace PatientManagement.Domain.Entities;
 
 public class Triage
 {
-    public string Id { get; set; }
-    public string CareId { get; set; }
-    public string Symptoms { get; set; } = string.Empty;
-    public string BloodPressure { get; set; } = string.Empty;
+    public string Id { get; set; } = null!;
+    public string CareId { get; set; } = null!;
+    public string Symptoms { get; set; } = null!;
+    public string BloodPressure { get; set; } =null!;
     public decimal Weight { get; set; }
     public decimal Height { get; set; }
-    public string SpecialtyId { get; set; }
+    public string SpecialtyId { get; set; } = null!;
 
     /// <summary>
     /// Calculates the Body Mass Index (BMI).

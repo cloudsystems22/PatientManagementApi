@@ -3,9 +3,9 @@ namespace PatientManagement.Domain.Entities;
 
 public class Care
 {
-    public string Id { get; set; }
-    public string SequenceNumber { get; set; }
-    public string PatientId { get; set; }
+    public string Id { get; set; } = null!;
+    public string SequenceNumber { get; set; } = null!;
+    public string PatientId { get; set; } = null!;
     public DateTime ArrivalTime { get; set; } = DateTime.Now;
     public StatusCare Status { get; set; } = StatusCare.Aguardando;
     public Patient Patient { get; set; } = null!;
