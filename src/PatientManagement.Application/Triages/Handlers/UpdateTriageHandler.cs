@@ -31,6 +31,11 @@ public class UpdateTriageHandler : ICommandHandler<UpdateTriageCommand, Result<T
             if (triage == null)
                 return Result<TriageDto>.Fail($"A triagem com ID:{command.Id} não foi encontrada.");
 
+            triage.Symptoms = command.Symptoms;
+            triage.BloodPressure = command.Symptoms;
+            triage.Height = command.Height;
+            triage.Weight = command.Weight;
+            
             await _repository.UpdateAsync(triage);
             var dto = _mapper.ToDto(triage);
             return Result<TriageDto>.Ok(dto);
