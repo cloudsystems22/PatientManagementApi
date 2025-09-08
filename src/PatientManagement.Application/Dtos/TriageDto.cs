@@ -8,7 +8,7 @@ public class TriageDto
     public string BloodPressure { get; set; } = string.Empty;
     public decimal Weight { get; set; }
     public decimal Height { get; set; }
-    public string SpecialtyId { get; set; }
+    public string SpecialityId { get; set; }
     public decimal IMC { get; set; }
     public string IMCClassification { get; set; } = string.Empty;
 }

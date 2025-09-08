@@ -27,6 +27,6 @@ public class MSSQLDbContext : DbContext
         modelBuilder.Entity<Triage>()
             .HasOne(t => t.Specialty)
             .WithMany(e => e.Triagens)
-            .HasForeignKey(t => t.SpecialtyId);
+            .HasForeignKey(t => t.SpecialityId);
     }
 }

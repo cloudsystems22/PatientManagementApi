@@ -8,5 +8,5 @@ public class SearchTriageQuery : IQuery<Result<IEnumerable<TriageDto>>>
 {
     public string? CareId { get; set; }
     public string? Symptoms { get; set; }
-    public string? SpecialtyId { get; set; }
+    public string? SpecialityId { get; set; }
 }

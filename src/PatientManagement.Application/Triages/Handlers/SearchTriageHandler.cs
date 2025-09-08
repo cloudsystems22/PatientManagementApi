@@ -31,7 +31,7 @@ public class SearchTriageHandler : IQueryHandler<SearchTriageQuery, Result<IEnum
             Expression<Func<Triage, bool>> filter = x =>
                 (string.IsNullOrEmpty(query.CareId) || x.CareId == query.CareId) &&
                 (string.IsNullOrEmpty(query.Symptoms) || x.Symptoms.Contains(query.Symptoms)) &&
-                (string.IsNullOrEmpty(query.SpecialtyId) || x.SpecialtyId == query.SpecialtyId);
+                (string.IsNullOrEmpty(query.SpecialityId) || x.SpecialityId == query.SpecialityId);
 
             var result = await _repository.GetAllWhereAsync(filter);
             var dto = _mapper.ToDtoIEnumerable(result);

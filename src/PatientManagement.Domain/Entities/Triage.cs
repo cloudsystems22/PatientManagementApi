@@ -8,7 +8,7 @@ public class Triage
     public string BloodPressure { get; set; } =null!;
     public decimal Weight { get; set; }
     public decimal Height { get; set; }
-    public string SpecialtyId { get; set; } = null!;
+    public string SpecialityId { get; set; } = null!;
 
     /// <summary>
     /// Calculates the Body Mass Index (BMI).

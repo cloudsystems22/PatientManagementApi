@@ -12,5 +12,5 @@ public class CreateTriageCommand : ICommand<Result<TriageDto>>
     public string BloodPressure { get; set; } = string.Empty;
     public decimal Weight { get; set; }
     public decimal Height { get; set; }
-    public string SpecialtyId { get; set; }
+    public string SpecialityId { get; set; }
 }

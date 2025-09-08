@@ -17,7 +17,7 @@ public class TriageMapper : ITriageMapper
             BloodPressure = triage.BloodPressure,
             Weight = triage.Weight,
             Height = triage.Height,
-            SpecialtyId = triage.SpecialtyId,
+            SpecialityId = triage.SpecialityId,
             IMC = triage.IMC,
             IMCClassification = triage.IMCClassification
         };
@@ -41,7 +41,7 @@ public class TriageMapper : ITriageMapper
             BloodPressure = command.BloodPressure,
             Weight = command.Weight,
             Height = command.Height,
-            SpecialtyId = command.SpecialtyId,
+            SpecialityId = command.SpecialityId,
         };
     }
 
@@ -54,7 +54,7 @@ public class TriageMapper : ITriageMapper
             BloodPressure = command.BloodPressure,
             Weight = command.Weight,
             Height = command.Height,
-            SpecialtyId = command.SpecialtyId
+            SpecialityId = command.SpecialityId
         };
     }
 }
