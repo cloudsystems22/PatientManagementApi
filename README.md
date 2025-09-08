@@ -97,6 +97,7 @@ dotnet run --project src/PatientManagement.Api
 
 https://localhost:7123/swagger
 
+```
 ```bash
 # Executa via docker comopose 
 docker compose up -d --build
