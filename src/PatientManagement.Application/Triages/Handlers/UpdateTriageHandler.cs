@@ -32,7 +32,7 @@ public class UpdateTriageHandler : ICommandHandler<UpdateTriageCommand, Result<T
                 return Result<TriageDto>.Fail($"A triagem com ID:{command.Id} não foi encontrada.");
 
             triage.Symptoms = command.Symptoms;
-            triage.BloodPressure = command.Symptoms;
+            triage.BloodPressure = command.BloodPressure;
             triage.Height = command.Height;
             triage.Weight = command.Weight;
             
